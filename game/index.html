@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Neon Bay: fully offline — no CDN, no fonts, no requests. All code is local. -->
+<title>Neon Bay — Open World Crime</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="wrap">
+  <canvas id="game" width="1280" height="720"></canvas>
+
+  <!-- In-game HUD -->
+  <div id="hud" class="hidden">
+    <div id="hud-top-left">
+      <div id="cash">$0</div>
+      <div id="healthbar"><div id="healthfill"></div><span id="healthtext">100</span></div>
+      <div id="ammo">PISTOL — <span id="ammo-count">12 / ∞</span></div>
+    </div>
+    <div id="hud-top-right">
+      <div id="stars"></div>
+      <div id="wanted-label">WANTED</div>
+    </div>
+    <div id="mission-box">
+      <div id="mission-title">MISSION</div>
+      <div id="mission-text"></div>
+      <div id="mission-timer"></div>
+    </div>
+    <div id="speedo" class="hidden"><span id="speed-val">0</span> mph</div>
+    <div id="hint"></div>
+    <div id="toast"></div>
+    <div id="crosshair"></div>
+  </div>
+  <canvas id="minimap" class="hidden" width="180" height="180"></canvas>
+  <div id="compass" class="hidden"><span id="compass-arrow">▲</span><span id="compass-dist"></span></div>
+
+  <!-- Start screen -->
+  <div id="menu" class="overlay">
+    <div class="menu-inner">
+      <h1>NEON<span> BAY</span></h1>
+      <p class="tagline">An open-world crime story. Steal it. Drive it. Survive it.</p>
+      <div class="menu-btns">
+        <button id="btn-continue" class="hidden">CONTINUE — <span id="continue-info"></span></button>
+        <button id="btn-new">NEW GAME</button>
+      </div>
+      <div class="controls">
+        <div><b>WASD / Arrows</b> move / drive</div>
+        <div><b>Shift</b> sprint</div>
+        <div><b>E</b> enter / exit car · steal car</div>
+        <div><b>Mouse</b> aim · <b>Click</b> shoot</div>
+        <div><b>F</b> punch &nbsp;·&nbsp; <b>R</b> reload</div>
+        <div><b>Esc / P</b> pause &nbsp;·&nbsp; <b>M</b> mute</div>
+      </div>
+      <p class="menu-foot">5 story missions · traffic &amp; pedestrians · police heat · save progress · v1.0</p>
+    </div>
+  </div>
+
+  <!-- Pause -->
+  <div id="pause" class="overlay hidden">
+    <div class="menu-inner">
+      <h2>PAUSED</h2>
+      <p class="tagline">Progress is saved automatically.</p>
+      <div class="menu-btns">
+        <button id="btn-resume">RESUME</button>
+        <button id="btn-quit">QUIT TO MENU</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Busted / Wasted -->
+  <div id="end" class="overlay hidden">
+    <div class="menu-inner">
+      <h2 id="end-title">BUSTED</h2>
+      <p class="tagline" id="end-sub"></p>
+      <p class="stats" id="end-stats"></p>
+      <div class="menu-btns">
+        <button id="btn-retry">TRY AGAIN</button>
+        <button id="btn-end-menu">MAIN MENU</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="src/rng.js"></script>
+<script src="src/world.js"></script>
+<script src="src/audio.js"></script>
+<script src="src/entities.js"></script>
+<script src="src/missions.js"></script>
+<script src="src/shots.js"></script>
+<script src="src/main.js"></script>
+</body>
+</html>

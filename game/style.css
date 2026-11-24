@@ -1,0 +1,51 @@
+/* Neon Bay HUD — dark glass panels, gold mission accents, readable at a glance. */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: #05060a; }
+body { font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif; color: #eef2ff; }
+#wrap { position: relative; width: 100vw; height: 100vh; }
+#game { position: absolute; inset: 0; width: 100%; height: 100%; display: block; background: #0a0d16; cursor: crosshair; }
+.hidden { display: none !important; }
+
+/* ---------- HUD ---------- */
+#hud { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
+#hud-top-left { position: absolute; top: 14px; left: 16px; }
+#cash { font-size: 30px; font-weight: 800; color: #7dff9a; text-shadow: 0 2px 0 #000, 0 0 18px rgba(80,255,140,.35); letter-spacing: 1px; }
+#healthbar { margin-top: 6px; width: 210px; height: 16px; background: rgba(0,0,0,.55); border: 1px solid rgba(255,255,255,.35); border-radius: 3px; position: relative; overflow: hidden; }
+#healthfill { height: 100%; width: 100%; background: linear-gradient(90deg, #ff3b4d, #ff7a45); transition: width .2s; }
+#healthtext { position: absolute; inset: 0; text-align: center; font-size: 11px; line-height: 16px; font-weight: 700; color: #fff; text-shadow: 0 1px 2px #000; }
+#ammo { margin-top: 6px; font-size: 13px; font-weight: 700; letter-spacing: 1px; color: #ffd75e; text-shadow: 0 1px 2px #000; }
+#hud-top-right { position: absolute; top: 12px; right: 18px; text-align: right; }
+#stars { font-size: 30px; letter-spacing: 3px; color: #ffd75e; text-shadow: 0 0 12px rgba(255,200,60,.8), 0 2px 0 #000; min-height: 36px; }
+#stars .off { color: rgba(255,255,255,.22); text-shadow: none; }
+#wanted-label { font-size: 11px; font-weight: 800; letter-spacing: 4px; color: #ff5b6a; text-shadow: 0 1px 2px #000; }
+#mission-box { position: absolute; top: 14px; left: 50%; transform: translateX(-50%); min-width: 340px; max-width: 460px; background: rgba(4,6,14,.72); border: 1px solid rgba(255,215,94,.55); border-left: 5px solid #ffd75e; border-radius: 4px; padding: 9px 14px; }
+#mission-title { font-size: 11px; font-weight: 800; letter-spacing: 3px; color: #ffd75e; }
+#mission-text { font-size: 15px; font-weight: 600; margin-top: 2px; }
+#mission-timer { font-size: 13px; font-weight: 800; color: #ff8a7a; margin-top: 2px; }
+#speedo { position: absolute; right: 18px; bottom: 206px; font-size: 26px; font-weight: 800; color: #fff; text-shadow: 0 2px 0 #000; }
+#speedo span { font-size: 34px; }
+#hint { position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); font-size: 15px; font-weight: 700; background: rgba(0,0,0,.6); border: 1px solid rgba(255,255,255,.25); padding: 7px 16px; border-radius: 4px; }
+#toast { position: absolute; top: 32%; left: 50%; transform: translate(-50%,-50%); font-size: 34px; font-weight: 900; letter-spacing: 2px; color: #ffd75e; text-shadow: 0 0 24px rgba(255,200,60,.6), 0 3px 0 #000; opacity: 0; transition: opacity .25s; text-align: center; white-space: nowrap; }
+#toast.show { opacity: 1; }
+#crosshair { position: absolute; width: 22px; height: 22px; margin: -11px 0 0 -11px; border: 2px solid rgba(255,255,255,.9); border-radius: 50%; box-shadow: 0 0 6px rgba(0,0,0,.8); pointer-events: none; }
+#crosshair::after { content: ""; position: absolute; left: 50%; top: 50%; width: 4px; height: 4px; margin: -2px 0 0 -2px; background: #ff3b4d; border-radius: 50%; }
+#minimap { position: absolute; right: 16px; bottom: 16px; width: 180px; height: 180px; border: 2px solid rgba(255,255,255,.45); border-radius: 6px; background: #0b0e18; box-shadow: 0 4px 18px rgba(0,0,0,.6); z-index: 6; }
+#compass { position: absolute; bottom: 204px; left: 50%; transform: translateX(-50%); font-size: 15px; font-weight: 800; color: #ffd75e; text-shadow: 0 1px 2px #000; }
+
+/* ---------- Overlays ---------- */
+.overlay { position: absolute; inset: 0; z-index: 10; display: flex; align-items: center; justify-content: center; background: linear-gradient(180deg, rgba(3,4,10,.55) 0%, rgba(3,4,10,.82) 100%); }
+.menu-inner { text-align: center; max-width: 640px; padding: 30px; }
+.menu-inner h1 { font-size: 84px; font-weight: 900; letter-spacing: 6px; line-height: .95; color: #fff; text-shadow: 0 0 30px rgba(255,60,120,.55), 0 4px 0 #000; }
+.menu-inner h1 span { color: #ffd75e; text-shadow: 0 0 30px rgba(255,200,60,.65), 0 4px 0 #000; }
+.menu-inner h2 { font-size: 64px; font-weight: 900; letter-spacing: 5px; color: #ff3b4d; text-shadow: 0 0 26px rgba(255,60,80,.6), 0 4px 0 #000; }
+.tagline { margin-top: 10px; font-size: 17px; color: #cdd6ff; }
+.menu-btns { margin-top: 26px; display: flex; flex-direction: column; gap: 12px; align-items: center; }
+.menu-btns button { pointer-events: auto; cursor: pointer; font-size: 19px; font-weight: 800; letter-spacing: 2px; color: #081018; background: linear-gradient(180deg, #ffe27a, #ffb52e); border: none; border-radius: 6px; padding: 13px 34px; min-width: 320px; box-shadow: 0 4px 0 #a86e00, 0 8px 22px rgba(0,0,0,.5); }
+.menu-btns button:hover { filter: brightness(1.08); }
+.menu-btns button:active { transform: translateY(2px); box-shadow: 0 2px 0 #a86e00; }
+#btn-continue { background: linear-gradient(180deg, #9be7ff, #3aa7ff); box-shadow: 0 4px 0 #0b5fa8, 0 8px 22px rgba(0,0,0,.5); }
+.controls { margin-top: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 7px 26px; text-align: left; font-size: 14px; color: #dfe6ff; background: rgba(0,0,0,.35); border: 1px solid rgba(255,255,255,.14); border-radius: 6px; padding: 14px 18px; }
+.controls b { color: #ffd75e; }
+.menu-foot { margin-top: 18px; font-size: 12px; color: #8d97b8; letter-spacing: 1px; }
+.stats { margin-top: 14px; font-size: 16px; color: #eef2ff; line-height: 1.7; }
+.stats b { color: #7dff9a; }
